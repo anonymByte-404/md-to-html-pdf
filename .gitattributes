@@ -1,2 +1,5 @@
-# Auto detect text files and perform LF normalization
+# Auto-detect text files and perform LF normalization
 * text=auto
+
+# Ensure Ruby files are treated as text files with LF normalization
+*.rb text eol=lf
