@@ -1,10 +1,12 @@
 <h1 align="center">Markdown to HTML & PDF Converter</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="AGPL-3.0 License">
-  <img src="https://img.shields.io/badge/Ruby-3.3.6-red.svg" alt="Express TypeScript Definitions">
-  <img src="https://img.shields.io/badge/kramdown-2.5.1-yellowgreen.svg" alt="Pygame Version">
-  <img src="https://img.shields.io/badge/prawn-2.5.0-yellowgreen.svg" alt="Pygame Version">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License">
+  <img src="https://img.shields.io/badge/md--to--html--pdf-1.1.0-yellow.svg" alt="md-to-html-pdf version">
+  <img src="https://img.shields.io/badge/Ruby-3.3.6-red.svg" alt="Ruby Version">
+  <img src="https://img.shields.io/badge/kramdown-2.5.1-yellowgreen.svg" alt="Kramdown Version">
+  <img src="https://img.shields.io/badge/prawn-2.5.0-yellowgreen.svg" alt="Prawn Version">
+  <img src="https://img.shields.io/badge/prawn--table-0.2.2-yellowgreen.svg" alt="Prawn-Table Version">
 </p>
 
 <p align="center"><i>This project provides a simple Ruby script that converts <strong>Markdown</strong> files into <strong>HTML</strong> and <strong>PDF</strong> formats. It supports the most common Markdown syntax, such as headers, lists, links, and code blocks.</i></p>
