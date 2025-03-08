@@ -1,71 +1,72 @@
 require_relative 'src/converter'
 require_relative 'src/markdown_to_html'
 
-def convert_markdown_to_pdf(markdown_text, output_file)
-  puts "Initializing PDF document..."
+class MarkdownConverter
+  # Initializes a new MarkdownConverter instance.
+  #
+  # @param input_file [String] The path to the Markdown input file.
+  # @param format [String] The desired output format ('html' or 'pdf').
+  def initialize(input_file, format)
+    @input_file = input_file
+    @format = format.downcase
+    validate_input_file
+    @markdown_text = File.read(@input_file)
+  end
 
-  pdf = Prawn::Document.new
-
-  markdown_text.each_line do |line|
-    case line
-    when /^# (.+)/
-      pdf.move_down 10
-      pdf.text $1, size: 24, style: :bold
-    when /^## (.+)/
-      pdf.move_down 8
-      pdf.text $1, size: 18, style: :bold
-    when /^### (.+)/
-      pdf.move_down 6
-      pdf.text $1, size: 16, style: :bold
-    when /^\* (.+)/
-      pdf.text "• #{$1}", size: 12
-    when /^```ruby/
-      pdf.move_down 5
-      pdf.font("Courier")
-    when /^```/
-      pdf.font("Helvetica")
-      pdf.move_down 5
-    when /^> (.+)/
-      pdf.move_down 5
-      pdf.indent(20) { pdf.text $1, size: 12, style: :italic }
-      pdf.move_down 5
+  # Converts the Markdown text to the specified format (HTML or PDF).
+  def convert
+    case @format
+    when 'html'
+      convert_to_html
+    when 'pdf'
+      convert_to_pdf
     else
-      pdf.text line.strip, size: 12
+      puts "Invalid format. Please specify 'html' or 'pdf'."
     end
   end
 
-  puts "Saving the PDF as: #{output_file}"
-  begin
-    pdf.render_file(output_file)
-    puts "PDF saved successfully!"
-  rescue StandardError => e
-    puts "Error saving PDF: #{e.message}"
+  private
+
+  # Validates the input file's existence.
+  def validate_input_file
+    unless File.exist?(@input_file)
+      puts "Error: Input file does not exist!"
+      exit
+    end
+  end
+
+  # Converts Markdown text to HTML and saves it to a file.
+  def convert_to_html
+    puts "Converting Markdown to HTML..."
+    html_output = convert_markdown_to_html(@markdown_text)
+    output_file = generate_output_filename("html")
+    File.write(output_file, html_output)
+    puts "HTML file saved as #{output_file}"
+  end
+
+  # Converts Markdown text to PDF and saves it to a file.
+  def convert_to_pdf
+    puts "Converting Markdown to PDF..."
+    output_file = generate_output_filename("pdf")
+    convert_markdown_to_pdf(@markdown_text, output_file)
+  end
+
+  # Generates an output filename based on the input file name and the desired format.
+  #
+  # @param extension [String] The desired output file extension ('html' or 'pdf').
+  # @return [String] The generated output filename.
+  def generate_output_filename(extension)
+    base_name = File.basename(@input_file, ".*")
+    "#{base_name}.#{extension}"
   end
 end
 
 if ARGV.length == 2
   input_file = ARGV[0]
-  format = ARGV[1].downcase
+  format = ARGV[1]
 
-  if !File.exist?(input_file)
-    puts "Error: Input file does not exist!"
-    exit
-  end
-
-  markdown_text = File.read(input_file)
-
-  case format
-  when 'html'
-    puts "Converting Markdown to HTML..."
-    html_output = convert_markdown_to_html(markdown_text)
-    File.write("output.html", html_output)
-    puts "HTML file saved as output.html"
-  when 'pdf'
-    puts "Converting Markdown to PDF..."
-    convert_markdown_to_pdf(markdown_text, "output.pdf")
-  else
-    puts "Invalid format. Please specify 'html' or 'pdf'."
-  end
+  converter = MarkdownConverter.new(input_file, format)
+  converter.convert
 else
   puts "Usage: ruby markdown-to-html-pdf.rb [input_file] [html|pdf]"
 end
