@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License">
-  <img src="https://img.shields.io/badge/md--to--html--pdf-1.1.0-yellow.svg" alt="md-to-html-pdf version">
+  <img src="https://img.shields.io/badge/md--to--html--pdf-1.2.0-yellow.svg" alt="md-to-html-pdf version">
   <img src="https://img.shields.io/badge/Ruby-3.3.6-red.svg" alt="Ruby Version">
   <img src="https://img.shields.io/badge/kramdown-2.5.1-yellowgreen.svg" alt="Kramdown Version">
   <img src="https://img.shields.io/badge/prawn-2.5.0-yellowgreen.svg" alt="Prawn Version">
